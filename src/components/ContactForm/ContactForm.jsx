@@ -1,7 +1,9 @@
+import { FaExclamationTriangle, FaCheckCircle } from "react-icons/fa";
+import toast from "react-hot-toast";
 import { useId } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { addContact } from "../../redux/contactsOps";
+import { addContact } from "../../redux/contacts/operations";
 import { useDispatch } from "react-redux";
 
 import css from "./ContactForm.module.css";
@@ -22,12 +24,42 @@ const initialValues = {
   number: "",
 };
 
+const error = () => {
+  toast("Creating contact failed. Please try again.", {
+    style: {
+      color: "red",
+      padding: "7px 10px",
+    },
+    icon: <FaExclamationTriangle />,
+    duration: 1500,
+  });
+};
+
+const success = () => {
+  toast("Contact created successfully!", {
+    style: {
+      color: "#007bff",
+      padding: "7px 10px",
+    },
+    icon: <FaCheckCircle />,
+    duration: 1500,
+  });
+};
+
 export default function ContactForm() {
   const dispatch = useDispatch();
   const nameFieldId = useId();
   const numberFieldId = useId();
   const handleSubmit = (values, actions) => {
-    dispatch(addContact({ name: values.name, number: values.number }));
+    dispatch(addContact({ name: values.name, number: values.number })).then(
+      (action) => {
+        if (action.meta.requestStatus === "fulfilled") {
+          success();
+        } else {
+          error();
+        }
+      }
+    );
     actions.resetForm();
   };
 

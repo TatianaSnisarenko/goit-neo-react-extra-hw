@@ -11,7 +11,7 @@ export default function Loader() {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        padding: "10px",
+        padding: "20px",
       }}
       wrapperClass=""
       visible={true}

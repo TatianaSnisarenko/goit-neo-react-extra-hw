@@ -1,6 +1,6 @@
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  --el-width: 300px;
+  --el-width: 275px;
   --planshet-form-width: 375px;
   --desktop-form-width: 400px;
 }
@@ -27,4 +27,14 @@ h6,
 p {
   margin-top: 0;
   margin-bottom: 0;
+}
+
+input {
+  outline: none;
+}
+
+button {
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
 }

@@ -10,23 +10,85 @@
   gap: 10px;
 }
 
-button {
-  padding: 5px 10px;
+.icon {
+  color: #007bff;
+}
+
+.deleteButton {
+  background-color: transparent;
+  padding: 10px;
+  color: red;
+  border: none;
   cursor: pointer;
-  transition: background-color 0.25s, border-color 0.25s;
-  outline: none;
-  border: 2px solid darkgray;
-  background-color: rgba(235, 233, 233, 0.991);
-  border-radius: 3px;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
 }
 
-button:hover,
-button:focus {
-  background-color: #e0e0e0;
-  border-color: #bbb;
+.deleteButton .icon {
+  color: red;
+  transition: color 0.3s ease;
 }
 
-button:active {
-  background-color: #f0f0f0;
-  border-color: #aaa;
+.deleteButton:hover .icon {
+  color: darkred;
+}
+
+.deleteButton:focus .icon,
+.deleteButton:active .icon {
+  color: #ff0000;
+}
+
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+.confirmButton {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin-right: 10px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.cancelButton {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.deleteMessage {
+  margin: 20px;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
 }

@@ -1,0 +1,30 @@
+.formsHolder {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  margin: 0 auto;
+  margin-bottom: 40px;
+  width: var(--el-width);
+}
+
+@media screen and (min-width: 634px) {
+  .formsHolder {
+    width: var(--planshet-form-width);
+  }
+}
+
+@media screen and (min-width: 929px) {
+  .formsHolder {
+    width: var(--desktop-form-width);
+  }
+}
+
+@media screen and (min-width: 1228px) {
+  .phonebook {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}

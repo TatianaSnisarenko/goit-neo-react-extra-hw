@@ -1,35 +1,62 @@
 import "modern-normalize/modern-normalize.css";
-
 import "./App.css";
-import ContactForm from "./components/ContactForm/ContactForm";
-import SearchBox from "./components/SearchBox/SearchBox";
-import ContactList from "./components/ContactList/ContactList";
+
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectLoading, selectError } from "./redux/selectors";
-import { fetchContacts } from "./redux/contactsOps";
+import { refreshUser } from "./redux/auth/operations";
+import { Suspense, lazy } from "react";
+import { Routes, Route } from "react-router-dom";
+import Navigation from "./components/Navigation/Navigation";
 import Loader from "./components/Loader/Loader";
-import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
+import Container from "./components/Container/Container";
+import RestrictedRoute from "./guards/RestrictedRoute/RestrictedRoute";
+import PrivateRoute from "./guards/PrivateRoute/PrivateRoute";
+import { selectIsRefreshing } from "./redux/auth/selectors";
+
+import HomePage from "./pages/HomePage/HomePage";
+import LoginPage from "./pages/LoginPage/LoginPage";
+import RegistrationPage from "./pages/RegistrationPage/RegistrationPage";
+import ContactsPage from "./pages/ContactsPage/ContactsPage";
+import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 
 const App = () => {
   const dispatch = useDispatch();
-  const isLoading = useSelector(selectLoading);
-  const error = useSelector(selectError);
+  const isRefreshing = useSelector(selectIsRefreshing);
 
   useEffect(() => {
-    dispatch(fetchContacts());
+    dispatch(refreshUser());
   }, [dispatch]);
 
   return (
     <>
-      <div>
-        <h1>Phonebook</h1>
-        <ContactForm />
-        <SearchBox />
-        {isLoading && !error && <Loader />}
-        {!isLoading && !error && <ContactList />}
-        {!isLoading && error && <ErrorMessage />}
-      </div>
+      <Navigation />
+      {isRefreshing ? (
+        <Loader />
+      ) : (
+        <Container>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route
+              path="/register"
+              element={<RestrictedRoute component={<RegistrationPage />} />}
+            />
+            <Route
+              path="/login"
+              element={<RestrictedRoute component={<LoginPage />} />}
+            />
+            <Route
+              path="/contacts"
+              element={
+                <PrivateRoute
+                  component={<ContactsPage />}
+                  redirectTo="/login"
+                />
+              }
+            />
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </Container>
+      )}
     </>
   );
 };
